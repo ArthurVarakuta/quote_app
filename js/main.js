@@ -1,8 +1,8 @@
-let quotes = JSON.parse([
-        {
-            "id": 1,
-            "quote": "Success is not final, failure is not fatal: It is the courage to continue that counts."
-        },
+let quotes =
+    [{
+        "id": 1,
+        "quote": "Success is not final, failure is not fatal: It is the courage to continue that counts."
+    },
         {
             "id": 2,
             "quote": "We make a living by what we get, but we make a life by what we give."
@@ -82,26 +82,58 @@ let quotes = JSON.parse([
         {
             "id": 21,
             "quote": "To build may have to be the slow and laborious task of years. To destroy can be the thoughtless act of a single day."
-        }
-    ]
-)
-const slider_wrapper = document.getElementsByClassName('slider_wrapper');
-const button_back = document.getElementsByClassName('button-back');
-const button_forward = document.getElementsByClassName('button-forward');
+        }];
 
-function create_quote(quote) {
-    const quote_card=document.createElement('li');
+const slider_wrapper = document.querySelector('.slider_wrapper');
+const button_back = document.querySelector('.button-back');
+const button_forward = document.querySelector('.button-forward');
+const slider_element = document.querySelector('.slider-element');
+const slider_body = document.getElementById('slider_body')
+let quote_counter = 0;
 
-
-    quote_card.setAttribute('id',quote.id );
-    if (quote.id>parseInt('0')){
-
+function quote_counter_check() {
+    if (quote_counter >= quotes.length || quote_counter < 1) {
+        quote_counter = 0;
     }
 }
 
+function get_next_quote(quotes) {
+    return quotes[quote_counter++];
+}
+
+function get_prev_quote(quotes) {
+    return quotes[quote_counter--];
+}
+
+function clear_all_quote_elements() {
+    slider_body.innerHTML = '';
+}
+
+function create_quote(quote) {
+    quote_counter_check();
+    const quote_card = document.createElement('li');
+    quote_card.setAttribute('id', quote.id);
+
+    quote_card.innerHTML = `
+       <ul class="slider-body" id="slider_body">
+        <li id="${quote_counter}" class="slider-element">${quote.quote}</li>
+    </ul>
+    `;
+    slider_body.appendChild(quote_card);
+}
+
 slider_wrapper.addEventListener('click', (e) => {
-    if (e.target.classList.contains("back-button") || e.target.classList.contains("forward-button")) {
-        create_quote(quote_id);
+    if (e.target.classList.contains("button-forward")) {
+        quote_counter_check()
+        clear_all_quote_elements();
+        create_quote(get_next_quote(quotes));
+        console.log(quote_counter)
+    }
+    if (e.target.classList.contains("button-back")) {
+        quote_counter_check()
+        clear_all_quote_elements();
+        create_quote(get_prev_quote(quotes))
+        console.log(quote_counter)
     }
 })
 
