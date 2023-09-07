@@ -92,7 +92,7 @@ const slider_body = document.getElementById('slider_body')
 let quote_counter = 0;
 
 function quote_counter_check() {
-    if (quote_counter >= quotes.length || quote_counter < 1) {
+        if (quote_counter >= quotes.length || quote_counter < 1) {
         quote_counter = 0;
     }
 }
@@ -116,7 +116,7 @@ function create_quote(quote) {
 
     quote_card.innerHTML = `
        <ul class="slider-body" id="slider_body">
-        <li id="${quote_counter}" class="slider-element">${quote.quote}</li>
+        <li id="${quote_counter}" class="slider-element ">${quote.quote}</li>
     </ul>
     `;
     slider_body.appendChild(quote_card);
@@ -124,16 +124,16 @@ function create_quote(quote) {
 
 slider_wrapper.addEventListener('click', (e) => {
     if (e.target.classList.contains("button-forward")) {
-        quote_counter_check()
+
+        quote_counter_check();
         clear_all_quote_elements();
         create_quote(get_next_quote(quotes));
-        console.log(quote_counter)
     }
     if (e.target.classList.contains("button-back")) {
-        quote_counter_check()
+
+        quote_counter_check();
         clear_all_quote_elements();
         create_quote(get_prev_quote(quotes))
-        console.log(quote_counter)
     }
 })
 

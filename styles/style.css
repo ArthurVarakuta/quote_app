@@ -60,10 +60,29 @@
     background-position: center;
     overflow-x: hidden;
 }
-/*.slider-element{*/
-/*    opacity: 0;*/
-/*    transition: opacity 230ms;*/
-/*}*/
-/*.slider-element:hover{*/
-/*    opacity: 1;*/
-/*}*/
+
+.slider-element {
+    animation: flow 0.6s ease-out;
+
+}
+.alternate-slider-element {
+    animation: alternative-flow 0.6s ease-out;
+
+}
+@keyframes flow {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes alternative-flow {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
